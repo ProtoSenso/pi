@@ -87,7 +87,7 @@
                             <manifest>
                                 <addClasspath>true</addClasspath>
                                 <classpathPrefix>lib/</classpathPrefix>
-                                <mainClass>com.mypackage.MyClass</mainClass>
+                                <mainClass>nl.ttstudios.pi.temperature.App</mainClass>
                             </manifest>
                         </archive>
                     </configuration>
