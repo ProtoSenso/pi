@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>nl.ttstudios</groupId>
+    <artifactId>pi</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>PI - BASELINE</name>
+    <url>http://maven.apache.org</url>
+
+    <modules>
+        <module>temperature</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+        <!-- General -->
+        <maven.compiler.source.version>1.8</maven.compiler.source.version>
+        <maven.compiler.target.version>1.8</maven.compiler.target.version>
+
+        <!-- 3rd party -->
+        <com.pi4j.pi4j-core.version>1.0</com.pi4j.pi4j-core.version>
+
+        <!-- Test Dependency versions -->
+        <junit.junit.version>4.12</junit.junit.version>
+        <org.mockito.mockito-core.version>1.10.19</org.mockito.mockito-core.version>
+        <org.easytesting.fest-assert.version>1.4</org.easytesting.fest-assert.version>
+
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.pi4j</groupId>
+                <artifactId>pi4j-core</artifactId>
+                <version>${com.pi4j.pi4j-core.version}</version>
+            </dependency>
+
+            <!-- Test dependencies -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${org.mockito.mockito-core.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.easytesting</groupId>
+                <artifactId>fest-assert</artifactId>
+                <version>${org.easytesting.fest-assert.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.5.1</version>
+                    <configuration>
+                        <source>${maven.compiler.source.version}</source>
+                        <target>${maven.compiler.target.version}</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
