@@ -1,4 +1,4 @@
-package nl.ttstudios.pi.temperature.gpio;
+package nl.ttstudios.pi.gpio.examples;
 
 /*
  * #%L
