@@ -13,6 +13,6 @@ public class App
     public static void main( String[] args ) throws InterruptedException, IOException
     {
         //ListenGpioExample.listenGpioExample();
-    	TemperatureManager tempManager = new TemperatureManager();
+    	new TemperatureManager();
     }
 }
