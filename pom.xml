@@ -125,7 +125,7 @@
                             <manifest>
                                 <addClasspath>true</addClasspath>
                                 <classpathPrefix>lib/</classpathPrefix>
-                                <mainClass>nl.ttstudios.pi.gpio.temperature.App</mainClass>
+                                <mainClass>nl.ttstudios.pi.App</mainClass>
                             </manifest>
                         </archive>
                         <descriptorRefs>
