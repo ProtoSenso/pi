@@ -1,32 +1,35 @@
 package nl.ttstudios.pi.gpio.temperature;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
 
-import nl.ttstudios.pi.sys_io.Find;
-import nl.ttstudios.pi.util.FileReader;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
+import nl.ttstudios.pi.gpio.temperature.drivers.DS1820;
 
 public class TemperatureManager {
-	private static final String baseDir = "/sys/bus/w1/devices/";
-	private static String deviceFolder;
-	private static String deviceFile = "/w1_slave";
+    private static final Logger LOG = LogManager.getLogger( TemperatureManager.class );
 
-	public TemperatureManager() throws IOException {
-		String pattern = "28*";
-		List<String> filesFound = Find.find(baseDir, pattern);
-		deviceFolder = filesFound.get(0);
-		deviceFile = deviceFolder + deviceFile;
+    public static final String SENSOR_TYPE_DS1820 = "DS1820";
 
-		List<String> lines = readTemperatureRaw();
-		for (String line : lines) {
-			System.out.println(line);
-		}
-	}
+    private TemperatureSensor sensor;
 
-	public List<String> readTemperatureRaw() throws IOException {
-		Path path = Paths.get(deviceFolder, "/w1_slave");
-		return FileReader.readLines(path);
-	}
+    public TemperatureManager() {
+        LOG.debug( "#### TemperatureManager Sensor: NONE" );
+    }
+
+    public TemperatureManager(String sensorType) throws IOException {
+        LOG.debug( "#### TemperatureManager Sensor: " + SENSOR_TYPE_DS1820 );
+
+        if ( SENSOR_TYPE_DS1820.equals( sensorType ) ) {
+            sensor = new DS1820();
+        }
+
+        printTemperature();
+    }
+
+    public String[] printTemperature() throws IOException {
+        String[] temperature = sensor.printTemperature();
+        return temperature;
+    }
 }
