@@ -16,29 +16,38 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        
+
         <!-- General -->
         <maven.compiler.source.version>1.8</maven.compiler.source.version>
         <maven.compiler.target.version>1.8</maven.compiler.target.version>
 
         <!-- 3rd party -->
-        <com.pi4j.pi4j-core.version>1.0</com.pi4j.pi4j-core.version>
+        <com.pi4j.pi4j-core.version>1.1-SNAPSHOT</com.pi4j.pi4j-core.version>
+        <org.apache.logging.log4j.log4j-core>2.6.2</org.apache.logging.log4j.log4j-core>
 
         <!-- Test Dependency versions -->
         <junit.junit.version>4.12</junit.junit.version>
         <org.mockito.mockito-core.version>1.10.19</org.mockito.mockito-core.version>
         <org.easytesting.fest-assert.version>1.4</org.easytesting.fest-assert.version>
+        <org.easytesting.fest-assert-core.version>2.0M10</org.easytesting.fest-assert-core.version>
 
     </properties>
 
     <dependencyManagement>
         <dependencies>
 
+            <!-- 3pp -->
             <dependency>
-                <groupId>com.pi4j</groupId>
-                <artifactId>pi4j-core</artifactId>
-                <version>${com.pi4j.pi4j-core.version}</version>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${org.apache.logging.log4j.log4j-core}</version>
             </dependency>
+
+            <!-- <dependency> -->
+            <!-- <groupId>com.pi4j</groupId> -->
+            <!-- <artifactId>pi4j-device</artifactId> -->
+            <!-- <version>${com.pi4j.pi4j-core.version}</version> -->
+            <!-- </dependency> -->
 
             <!-- Test dependencies -->
             <dependency>
@@ -59,6 +68,14 @@
                 <groupId>org.easytesting</groupId>
                 <artifactId>fest-assert</artifactId>
                 <version>${org.easytesting.fest-assert.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.easytesting</groupId>
+                <artifactId>fest-assert-core</artifactId>
+                <version>${org.easytesting.fest-assert-core.version}</version>
+                <scope>test</scope>
             </dependency>
 
         </dependencies>
@@ -75,6 +92,32 @@
                         <source>${maven.compiler.source.version}</source>
                         <target>${maven.compiler.target.version}</target>
                     </configuration>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.6</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addClasspath>true</addClasspath>
+                                <classpathPrefix>lib/</classpathPrefix>
+                                <mainClass>nl.ttstudios.pi.App</mainClass>
+                            </manifest>
+                        </archive>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                            <phase>package</phase> <!-- bind to the packaging phase -->
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
