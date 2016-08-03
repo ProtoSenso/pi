@@ -10,7 +10,7 @@
 
     <groupId>nl.ttstudios.pi</groupId>
     <artifactId>temperature</artifactId>
-    <version>${parent.version}</version>
+    <version>${project.parent.version}</version>
     <packaging>jar</packaging>
 
     <name>temperature</name>
