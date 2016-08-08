@@ -26,8 +26,8 @@ public class TemperatureManagerTest {
 
     @Before
     public void init() throws IOException {
-        when( sensor.printTemperature() ).thenReturn( new String[] { "21", "6" } );
-        when( sensor.readTemperature() ).thenReturn( new String[] { "21", "6" } );
+        when( sensor.printTemperature() ).thenReturn( new String[] { "21", "6", "37", "45" } );
+        when( sensor.readTemperature() ).thenReturn( new String[] { "21", "6", "37", "45" } );
     }
 
     @Test
@@ -40,5 +40,7 @@ public class TemperatureManagerTest {
         // verify
         assertThat( result[0] ).isEqualTo( "21" );
         assertThat( result[1] ).isEqualTo( "6" );
+        assertThat( result[2] ).isEqualTo( "37" );
+        assertThat( result[3] ).isEqualTo( "45" );
     }
 }
