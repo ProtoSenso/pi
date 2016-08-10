@@ -18,7 +18,7 @@ public class DS1820 implements TemperatureSensor {
     private static final String YES = "YES";
     private static final String NO = "NO";
     private static final String PREFIX_TEMPERATURE_CELSIUS = "t=";
-    private static final String PREFIX_TEMPERATURE_FAHRENHEIT = "crc=";
+    private static final String PREFIX_CRC = "crc=";
 
     private static final String baseDir = "/sys/bus/w1/devices/";
 
@@ -45,7 +45,7 @@ public class DS1820 implements TemperatureSensor {
             LOG.debug( detail );
             rawTemperature = rawTemperature + detail;
         }
-        temperature = getTemperatureFromDetail( rawTemperature );
+        temperature = getTemperatureFromDetail( rawTemperature, System.currentTimeMillis() );
         return temperature;
     }
 
@@ -60,18 +60,18 @@ public class DS1820 implements TemperatureSensor {
      * @param detail - the raw data from the sensor reading app
      * @return - an String array with the celsius value on index 1 and on index 2 the fahrenheit value
      */
-    private String[] getTemperatureFromDetail(String detail) {
-        String[] temperature = new String[3];
+    private String[] getTemperatureFromDetail(String detail, long unixTimestamp) {
+        String[] temperature = new String[4];
         String temperatureC = null;
-        String temperatureF = null;
+        String temperatureCRC = null;
 
         boolean isTemperatureOK = false;
         String[] sentenceParts = detail.split( " " );
 
         for ( String part : sentenceParts ) {
             if ( part != null && part.contains( "=" ) ) {
-                if ( part.length() > 4 && PREFIX_TEMPERATURE_FAHRENHEIT.equals( part.substring( 0, 4 ) ) ) {
-                    temperatureF = part.substring( 4, part.length() );
+                if ( part.length() > 4 && PREFIX_CRC.equals( part.substring( 0, 4 ) ) ) {
+                    temperatureCRC = part.substring( 4, part.length() );
                 }
                 if ( part.length() > 2 && PREFIX_TEMPERATURE_CELSIUS.equals( part.substring( 0, 2 ) ) ) {
                     temperatureC = part.length() > 2 ? part.substring( 2, part.length() ) : null;
@@ -82,8 +82,9 @@ public class DS1820 implements TemperatureSensor {
             }
         }
         temperature[0] = temperatureC;
-        temperature[1] = temperatureF;
+        temperature[1] = temperatureCRC;
         temperature[2] = isTemperatureOK ? YES : NO;
+        temperature[3] = "" + unixTimestamp;
         return temperature;
     }
 
@@ -106,8 +107,9 @@ public class DS1820 implements TemperatureSensor {
 
         if ( temperature != null ) {
             LOG.debug( "The temperature (Celsius) is: " + temperature[0] );
-            LOG.debug( "The temperature (Fahrenheit) is: " + temperature[1] );
+            LOG.debug( "The temperature (crc) is: " + temperature[1] );
             LOG.debug( "The temperature read is: " + temperature[2] );
+            LOG.debug( "The unix-timestamp is: " + temperature[3] );
         }
         return temperature;
     }
