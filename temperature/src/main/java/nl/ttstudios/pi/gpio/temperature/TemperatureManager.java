@@ -58,7 +58,7 @@ public class TemperatureManager {
     	pet.setStatus(temperatureDetails.toString());
     	
     	Config config = new Config();
-    	System.out.println(config.getBasePath()) ;
+    	System.out.println("basePath: " + config.getBasePath()) ;
     	CreateUsersWithListClientResource restFunction = new CreateUsersWithListClientResource(config);
 
     }
