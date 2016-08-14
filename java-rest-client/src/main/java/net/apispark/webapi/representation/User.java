@@ -8,8 +8,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
 public class User implements java.io.Serializable {
-    /** Default serial version ID. */
-    private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = -1349540872013721594L;
+
+	/** Default serial version ID. */
 
     private java.lang.Integer id;
 
