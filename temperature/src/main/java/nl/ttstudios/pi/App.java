@@ -9,6 +9,7 @@ import nl.ttstudios.pi.gpio.temperature.TemperatureManager;
  */
 public class App {
     public static void main(String[] args) throws InterruptedException, IOException {
-        new TemperatureManager( TemperatureManager.SENSOR_TYPE_DS1820 );
+        TemperatureManager temperatureManager = new TemperatureManager( TemperatureManager.SENSOR_TYPE_DS1820 );
+        String[] details = temperatureManager.printTemperature();
     }
 }

@@ -21,6 +21,12 @@
     </properties>
 
     <dependencies>
+        <!-- modules -->
+        <dependency>
+            <groupId>nl.ttstudios.pi</groupId>
+            <artifactId>java-rest-client</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
 
         <!-- 3pp -->
         <dependency>

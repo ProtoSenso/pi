@@ -12,6 +12,7 @@
 
     <modules>
         <module>temperature</module>
+        <module>java-rest-client</module>
     </modules>
 
     <properties>

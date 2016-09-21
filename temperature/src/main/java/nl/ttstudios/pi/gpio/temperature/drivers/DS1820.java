@@ -25,12 +25,6 @@ public class DS1820 implements TemperatureSensor {
     private static String deviceFolder = null;
     private static String deviceFile = "/w1_slave";
 
-    /**
-     * read raw temperature and extract the raw temperature
-     * 
-     * @return
-     * @throws IOException - when the temparatue sensor is nog configured
-     */
     @Override
     public String[] readTemperature() throws IOException {
         LOG.info( "#### DS1820 readTemperature" );
@@ -56,10 +50,6 @@ public class DS1820 implements TemperatureSensor {
         deviceFile = deviceFolder + deviceFile;
     }
 
-    /**
-     * @param detail - the raw data from the sensor reading app
-     * @return - an String array with the celsius value on index 1 and on index 2 the fahrenheit value
-     */
     private String[] getTemperatureFromDetail(String detail, long unixTimestamp) {
         String[] temperature = new String[4];
         String temperatureC = null;
@@ -89,7 +79,7 @@ public class DS1820 implements TemperatureSensor {
     }
 
     /**
-     * returns a list of temperature details
+     * returns a list of raw temperature details
      * 
      * @return
      * @throws IOException
