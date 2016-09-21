@@ -51,8 +51,8 @@ public class App {
 	private static String doPost() throws JsonProcessingException {
 		// 1. prepare
 		Book book = new Book();
-		book.setAuthor("T.V.C.S. Tseng");
-		book.setIsbn("12345678");
+		book.setAuthor("Merel Minkes");
+		book.setIsbn("123456789");
 		book.setTitle("My Biography");
 
 		// 2. set any target to client

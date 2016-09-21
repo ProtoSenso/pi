@@ -14,6 +14,7 @@
 	<modules>
 		<module>temperature</module>
 		<module>java-rest-client</module>
+		<module>logicimpl</module>
 	</modules>
 
 	<properties>

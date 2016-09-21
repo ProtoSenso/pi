@@ -18,7 +18,10 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+		<!-- INTERNAL -->
+		<nl.ttstudios.java-rest-server.version>0.0.1-SNAPSHOT</nl.ttstudios.java-rest-server.version>
 
+		<!-- 3RD PARTY -->
 		<swagger-core-version>1.5.9</swagger-core-version>
 
 		<!-- HTTP client: jersey-client -->
@@ -30,7 +33,7 @@
 		<!-- Maven -->
 		<maven-plugin-version>1.0.0</maven-plugin-version>
 
-		<!-- Test -->
+		<!-- TEST -->
 		<junit-version>4.12</junit-version>
 	</properties>
 
@@ -39,7 +42,7 @@
 		<dependency>
 			<groupId>nl.ttstudios</groupId>
 			<artifactId>java-rest-server</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${nl.ttstudios.java-rest-server.version}</version>
 		</dependency>
 
 		<!-- HTTP client: jersey-client -->
