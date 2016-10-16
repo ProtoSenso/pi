@@ -35,10 +35,6 @@
 
 	<dependencies>
 		<!-- INTERNAL -->
-		<dependency>
-			<groupId>nl.ttstudios</groupId>
-			<artifactId>java-rest-server</artifactId>
-		</dependency>
 
 		<!-- HTTP client: jersey-client -->
 		<dependency>
