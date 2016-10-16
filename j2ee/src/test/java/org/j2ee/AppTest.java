@@ -1,4 +1,4 @@
-package nl.ttstudios.pi.logicimpl;
+package org.j2ee;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

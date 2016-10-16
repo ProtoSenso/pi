@@ -14,7 +14,7 @@
 	<modules>
 		<module>temperature</module>
 		<module>java-rest-client</module>
-		<module>logicimpl</module>
+		<module>j2ee</module>
 	</modules>
 
 	<properties>
@@ -25,7 +25,6 @@
 		<maven.compiler.target.version>1.8</maven.compiler.target.version>
         
         <!-- INTERNAL -->
-        <nl.ttstudios.java-rest-server.version>0.0.1-SNAPSHOT</nl.ttstudios.java-rest-server.version>
         <nl.ttstudios.java-rest-server.version>0.0.1-SNAPSHOT</nl.ttstudios.java-rest-server.version>
 		
         <!-- 3rd party -->
@@ -43,16 +42,6 @@
 
 	<dependencyManagement>
 		<dependencies>
-            <dependency>
-                <groupId>nl.ttstudios</groupId>
-                <artifactId>java-rest-server</artifactId>
-                <version>${nl.ttstudios.java-rest-server.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>nl.ttstudios</groupId>
-                <artifactId>java-rest-client</artifactId>
-                <version>${nl.ttstudios.java-rest-client.version}</version>
-            </dependency>
 
 			<!-- 3pp -->
             <dependency>
@@ -126,7 +115,7 @@
 							<manifest>
 								<addClasspath>true</addClasspath>
 								<classpathPrefix>lib/</classpathPrefix>
-								<mainClass>nl.ttstudios.pi.logicimpl.App</mainClass>
+								<mainClass>nl.ttstudios.pi.App</mainClass>
 							</manifest>
 						</archive>
 						<descriptorRefs>

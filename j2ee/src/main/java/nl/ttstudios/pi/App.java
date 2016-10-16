@@ -1,4 +1,4 @@
-package nl.ttstudios.pi.logicimpl;
+package nl.ttstudios.pi;
 
 import java.io.IOException;
 
@@ -13,7 +13,6 @@ import nl.ttstudios.rest.client.RestClient;
  */
 public class App {
 
-    private static final String TARGET_URL_GET = "http://localhost:9080/api/temperature_readings";
     private static final String TARGET_URL_POST = "http://localhost:9080/api/temperature_reading";
 
     private static final String SENSOR_TYPE = TemperatureManager.SENSOR_TYPE_DS1820;

@@ -42,6 +42,7 @@ public class RestClient {
         System.out.println( body );
 
         Response postResponse = target.request().post( Entity.json( body ) );
+        System.out.println( "-------------->" + postResponse + "<-------------------");
         if ( postResponse.getStatus() != 201 ) {
             System.out.println( "Error!!!!" );
         }
