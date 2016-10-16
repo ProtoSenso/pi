@@ -21,6 +21,13 @@
     </properties>
 
     <dependencies>
+        <!-- COMMON -->
+        <dependency>
+            <groupId>nl.ttstudios</groupId>
+            <artifactId>util</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        
         <!-- INTERNAL -->
         
 

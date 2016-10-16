@@ -21,12 +21,13 @@ public class TemperatureManager {
 
     public TemperatureManager(String sensorType) throws IOException {
         LOG.debug( "#### TemperatureManager Sensor: " + SENSOR_TYPE_DS1820 );
-
+        
         if ( SENSOR_TYPE_DS1820.equals( sensorType ) ) {
             sensor = new DS1820();
         }
-
-        printTemperature();
+        else{
+            throw new UnsupportedOperationException("Unsupported sensor: " + sensorType);
+        }
     }
 
     public DS1820Dto readTemperature() throws IOException {
