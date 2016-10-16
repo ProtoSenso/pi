@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import nl.ttstudios.pi.gpio.temperature.TemperatureDto;
 import nl.ttstudios.pi.gpio.temperature.TemperatureSensor;
 import nl.ttstudios.pi.sys_io.Find;
 import nl.ttstudios.pi.util.FileReader;
@@ -18,9 +19,15 @@ public class DS1820 implements TemperatureSensor {
     private static final String YES = "YES";
     private static final String NO = "NO";
     private static final String PREFIX_TEMPERATURE_CELSIUS = "t=";
+    private static final String TEMPERATURE_UNIT = TemperatureDto.CELSIUS;
     private static final String PREFIX_CRC = "crc=";
 
     private static final String baseDir = "/sys/bus/w1/devices/";
+
+    private static final int TEMPERATURE_CELSIUS_INDEX = 0;
+    private static final int CRC_INDEX = 1;
+    private static final int TEMPERATURE_OK_INDEX = 2;
+    private static final int TIMESTAMP_INDEX = 3;
 
     private static String deviceFolder = null;
     private static String deviceFile = "/w1_slave";
@@ -32,10 +39,10 @@ public class DS1820 implements TemperatureSensor {
      * @throws IOException - when the temparatue sensor is nog configured
      */
     @Override
-    public String[] readTemperature() throws IOException {
+    public DS1820Dto readTemperature() throws IOException {
         LOG.info( "#### DS1820 readTemperature" );
-        
-        String[] temperature = null;
+
+        String[] temperatureStringArray = null;
 
         getDeviceSpecifics();
         List<String> details = readTemperatureRaw();
@@ -45,8 +52,17 @@ public class DS1820 implements TemperatureSensor {
             LOG.debug( detail );
             rawTemperature = rawTemperature + detail;
         }
-        temperature = getTemperatureFromDetail( rawTemperature, System.currentTimeMillis() );
-        return temperature;
+        temperatureStringArray = getTemperatureFromDetail( rawTemperature, System.currentTimeMillis() );
+
+        DS1820Dto dto = new DS1820Dto();
+        dto.setSensorUID( deviceFolder );
+        dto.setTemperature( Double.valueOf( temperatureStringArray[TEMPERATURE_CELSIUS_INDEX] ) );
+        dto.setTemperatureUnit( TEMPERATURE_UNIT );
+        dto.setTemperatureCRC( temperatureStringArray[CRC_INDEX] );
+        dto.setTemperatureOK( temperatureStringArray[TEMPERATURE_OK_INDEX].equals( YES ) ? true : false );
+        dto.setUnixTimestamp( temperatureStringArray[TIMESTAMP_INDEX] );
+
+        return dto;
     }
 
     private void getDeviceSpecifics() throws IOException {
@@ -81,10 +97,10 @@ public class DS1820 implements TemperatureSensor {
                 isTemperatureOK = true;
             }
         }
-        temperature[0] = temperatureC;
-        temperature[1] = temperatureCRC;
-        temperature[2] = isTemperatureOK ? YES : NO;
-        temperature[3] = "" + unixTimestamp;
+        temperature[TEMPERATURE_CELSIUS_INDEX] = temperatureC;
+        temperature[CRC_INDEX] = temperatureCRC;
+        temperature[TEMPERATURE_OK_INDEX] = isTemperatureOK ? YES : NO;
+        temperature[TIMESTAMP_INDEX] = "" + unixTimestamp;
         return temperature;
     }
 
@@ -100,17 +116,17 @@ public class DS1820 implements TemperatureSensor {
     }
 
     @Override
-    public String[] printTemperature() throws IOException {
+    public String printTemperature() throws IOException {
         LOG.info( "#### DS1820 printTemperature" );
-        
-        String[] temperature = readTemperature();
 
-        if ( temperature != null ) {
-            LOG.debug( "The temperature (Celsius) is: " + temperature[0] );
-            LOG.debug( "The temperature (crc) is: " + temperature[1] );
-            LOG.debug( "The temperature read is: " + temperature[2] );
-            LOG.debug( "The unix-timestamp is: " + temperature[3] );
+        DS1820Dto dto = readTemperature();
+
+        if ( dto != null ) {
+            LOG.debug( "The temperature (Celsius) is: " + dto.getTemperature() );
+            LOG.debug( "The temperature (crc) is: " + dto.getTemperatureCRC() );
+            LOG.debug( "The temperature read is OK?: " + dto.isTemperatureOK() );
+            LOG.debug( "The unix-timestamp is: " + dto.getUnixTimestamp() );
         }
-        return temperature;
+        return dto.toString();
     }
 }

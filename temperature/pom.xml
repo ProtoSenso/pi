@@ -21,6 +21,11 @@
     </properties>
 
     <dependencies>
+        <!-- INTERNAL -->
+        <dependency>
+            <groupId>nl.ttstudios</groupId>
+            <artifactId>java-rest-server</artifactId>
+        </dependency>
 
         <!-- 3pp -->
         <dependency>

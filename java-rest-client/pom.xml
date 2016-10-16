@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>nl.ttstudios</groupId>
+		<artifactId>pi</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>java-rest-client</artifactId>
+
+	<name>java-rest-client</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		
+
+		<!-- 3RD PARTY -->
+		<swagger-core-version>1.5.9</swagger-core-version>
+
+		<!-- HTTP client: jersey-client -->
+		<jersey-version>2.22.2</jersey-version>
+
+		<!-- Maven -->
+		<maven-plugin-version>1.0.0</maven-plugin-version>
+
+		<!-- TEST -->
+		<junit-version>4.12</junit-version>
+	</properties>
+
+	<dependencies>
+		<!-- INTERNAL -->
+		<dependency>
+			<groupId>nl.ttstudios</groupId>
+			<artifactId>java-rest-server</artifactId>
+		</dependency>
+
+		<!-- HTTP client: jersey-client -->
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>${jersey-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-multipart</artifactId>
+			<version>${jersey-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>${jersey-version}</version>
+		</dependency>
+
+		<!-- JSON processing: jackson -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+ <build>
+ <plugins>
+ <plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-dependency-plugin</artifactId>
+  <executions>
+   <execution>
+    <id>copy-dependencies</id>
+    <phase>prepare-package</phase>
+    <goals>
+     <goal>copy-dependencies</goal>
+    </goals>
+    <configuration>
+     <outputDirectory>${project.build.directory}/lib</outputDirectory>
+     <overWriteReleases>false</overWriteReleases>
+     <overWriteSnapshots>false</overWriteSnapshots>
+     <overWriteIfNewer>true</overWriteIfNewer>
+    </configuration>
+   </execution>
+  </executions>
+ </plugin>
+ <plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-jar-plugin</artifactId>
+  <configuration>
+   <archive>
+    <manifest>
+     <addClasspath>true</addClasspath>
+     <classpathPrefix>lib/</classpathPrefix>
+     <!-- <mainClass>theMainClass</mainClass> -->
+    </manifest>
+   </archive>
+  </configuration>
+ </plugin>
+</plugins>
+</build>
+</project>
