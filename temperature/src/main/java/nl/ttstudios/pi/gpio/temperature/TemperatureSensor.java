@@ -2,8 +2,10 @@ package nl.ttstudios.pi.gpio.temperature;
 
 import java.io.IOException;
 
-public interface TemperatureSensor {
-    public String[] readTemperature() throws IOException;
+import nl.ttstudios.pi.gpio.temperature.drivers.DS1820Dto;
 
-    public String[] printTemperature() throws IOException;
+public interface TemperatureSensor {
+    public DS1820Dto readTemperature() throws IOException;
+
+    public String printTemperature() throws IOException;
 }

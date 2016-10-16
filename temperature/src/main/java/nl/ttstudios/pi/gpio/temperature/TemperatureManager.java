@@ -2,10 +2,11 @@ package nl.ttstudios.pi.gpio.temperature;
 
 import java.io.IOException;
 
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import nl.ttstudios.pi.gpio.temperature.drivers.DS1820;
+import nl.ttstudios.pi.gpio.temperature.drivers.DS1820Dto;
 
 public class TemperatureManager {
     private static final Logger LOG = LogManager.getLogger( TemperatureManager.class );
@@ -28,8 +29,11 @@ public class TemperatureManager {
         printTemperature();
     }
 
-    public String[] printTemperature() throws IOException {
-        String[] temperature = sensor.printTemperature();
-        return temperature;
+    public DS1820Dto readTemperature() throws IOException {
+        return sensor.readTemperature();
+    }
+    
+    public String printTemperature() throws IOException {
+        return sensor.printTemperature();
     }
 }

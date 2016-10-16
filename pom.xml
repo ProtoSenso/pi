@@ -23,8 +23,13 @@
 		<!-- General -->
 		<maven.compiler.source.version>1.8</maven.compiler.source.version>
 		<maven.compiler.target.version>1.8</maven.compiler.target.version>
-
-		<!-- 3rd party -->
+        
+        <!-- INTERNAL -->
+        <nl.ttstudios.java-rest-server.version>0.0.1-SNAPSHOT</nl.ttstudios.java-rest-server.version>
+        <nl.ttstudios.java-rest-server.version>0.0.1-SNAPSHOT</nl.ttstudios.java-rest-server.version>
+		
+        <!-- 3rd party -->
+        <jackson-version>2.7.5</jackson-version>
 		<com.pi4j.pi4j-core.version>1.1-SNAPSHOT</com.pi4j.pi4j-core.version>
 		<org.apache.logging.log4j.log4j-core>2.6.2</org.apache.logging.log4j.log4j-core>
 
@@ -38,8 +43,24 @@
 
 	<dependencyManagement>
 		<dependencies>
+            <dependency>
+                <groupId>nl.ttstudios</groupId>
+                <artifactId>java-rest-server</artifactId>
+                <version>${nl.ttstudios.java-rest-server.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.ttstudios</groupId>
+                <artifactId>java-rest-client</artifactId>
+                <version>${nl.ttstudios.java-rest-client.version}</version>
+            </dependency>
 
 			<!-- 3pp -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson-version}</version>
+            </dependency>
+   
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
 				<artifactId>log4j-core</artifactId>
@@ -105,7 +126,7 @@
 							<manifest>
 								<addClasspath>true</addClasspath>
 								<classpathPrefix>lib/</classpathPrefix>
-								<mainClass>nl.ttstudios.pi.App</mainClass>
+								<mainClass>nl.ttstudios.pi.logicimpl.App</mainClass>
 							</manifest>
 						</archive>
 						<descriptorRefs>

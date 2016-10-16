@@ -14,53 +14,30 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import uk.co.cyberbliss.Book;
-
-@ContextConfiguration( classes = App.class, loader = SpringApplicationContextLoader.class )
+@ContextConfiguration( classes = RestClient.class, loader = SpringApplicationContextLoader.class )
 @WebAppConfiguration
-public class App {
+public class RestClient {
 
     // 1. create client
     private static Client client = ClientBuilder.newClient();
 
     private static ObjectMapper mapper = new ObjectMapper();
 
-    public static void main(String[] args) {
-
-        // Just get a response
-        System.out.println( doGet() );
-
-        // Do first post
-        try {
-            System.out.println( doPost() );
-        }
-        catch ( JsonProcessingException e ) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
-
-    private static String doGet() {
+    public static String doGet(String targetUrl) {
 
         // 2. set any target to client
-        WebTarget target = client.target( "http://localhost:9080/api/books" );
+        WebTarget target = client.target( targetUrl );
 
         return target.request( MediaType.APPLICATION_JSON ).get( String.class );
     }
 
-    private static String doPost() throws JsonProcessingException {
-        // 1. prepare
-        Book book = new Book();
-        book.setAuthor( "Merel Minkes" );
-        book.setIsbn( "123456789" );
-        book.setTitle( "My Biography" );
+    public static String doPost(String targetUrl, Object dto) throws JsonProcessingException {
 
         // 2. set any target to client
-        WebTarget target = client.target( "http://localhost:9080/api/book" );
+        WebTarget target = client.target( targetUrl );
 
         // 3. get response from message
-        String body = mapper.writeValueAsString( book );
+        String body = mapper.writeValueAsString( dto );
 
         System.out.println( body );
 
