@@ -23,7 +23,7 @@
     <dependencies>
         <!-- COMMON -->
         <dependency>
-            <groupId>nl.ttstudios</groupId>
+            <groupId>nl.ttstudios.pi</groupId>
             <artifactId>util</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
