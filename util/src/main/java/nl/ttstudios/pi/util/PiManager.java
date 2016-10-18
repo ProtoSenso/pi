@@ -11,12 +11,13 @@ import java.util.regex.Pattern;
 
 public class PiManager {
 
-    private Properties prop = new Properties();
-
     private static final String PROPERTY_FILE = "pi.properties";
 
     protected static String BASE_DIR;
     protected static String FILE;
+
+    private Properties prop = new Properties();
+    private FileReader fileReader = new FileReader();
 
     public PiManager() throws IOException {
 
@@ -50,11 +51,9 @@ public class PiManager {
         }
         return serialNumber;
     }
-
-    private List<String> readPiDetailsRaw() throws URISyntaxException, IOException {
-        String filePath = "/" + BASE_DIR + FILE;
-        System.out.println( filePath );
-        Path path = Paths.get( getClass().getResource( filePath ).toURI() );
+    
+    private List<String> readPiDetailsRaw() throws IOException {
+        Path path = Paths.get( "/" + BASE_DIR, FILE );
         return FileReader.readLines( path );
     }
 

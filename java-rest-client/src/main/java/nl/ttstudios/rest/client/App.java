@@ -51,16 +51,13 @@
 //
 //    private static String doPost() throws JsonProcessingException {
 //        // 1. prepare
-//        Book book = new Book();
-//        book.setAuthor( "Merel Minkes" );
-//        book.setIsbn( "123456789" );
-//        book.setTitle( "My Biography" );
-//
+//        {"uID":"731d0161-dfc0-4d0b-b924-ec0c3e8301e0","sensorUID":"/sys/bus/w1/devices/28-000007c6bd73","deviceUID":"00000000463d34d5","temperature":18812.0,"temperatureUnit":"celsius","unixTimestamp":"1476832400997","temperatureCRC":"39","temperatureOK":true}
+//        DS1820Dto dto = new DS1820Dto();
 //        // 2. set any target to client
 //        WebTarget target = client.target( "http://localhost:9080/api/book" );
 //
 //        // 3. get response from message
-//        String body = mapper.writeValueAsString( book );
+//        String body = mapper.writeValueAsString( dto );
 //
 //        System.out.println( body );
 //

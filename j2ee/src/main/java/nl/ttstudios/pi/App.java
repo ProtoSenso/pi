@@ -14,7 +14,8 @@ import nl.ttstudios.rest.client.RestClient;
  */
 public class App {
 
-    private static final String TARGET_URL_POST = "http://localhost:9080/api/temperature_reading";
+    private static final String TARGET = "192.168.1.65";
+    private static final String TARGET_URL_POST = "http://" + TARGET + ":9080/api/temperature_reading";
 
     private static final String SENSOR_TYPE = TemperatureManager.SENSOR_TYPE_DS1820;
     private static final long SLEEP_MILLIS = 1000;

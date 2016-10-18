@@ -91,7 +91,7 @@ public class DS1820 implements TemperatureSensor {
      * @return - an String array with the celsius value on index 1 and on index 2 the fahrenheit value
      */
     private String[] getTemperatureFromDetail(String detail, long unixTimestamp) {
-        String[] temperature = new String[4];
+        String[] temperature = new String[5];
         String temperatureC = null;
         String temperatureCRC = null;
 

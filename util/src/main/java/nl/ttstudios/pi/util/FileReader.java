@@ -16,9 +16,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -26,8 +28,7 @@ import java.util.List;
  */
 public class FileReader {
 
-    private FileReader() {
-        // never to be used
+    public FileReader() {
     }
 
     public static byte[] read(String fileName) throws IOException {
@@ -70,10 +71,17 @@ public class FileReader {
         }
         return ous.toByteArray();
     }
-    
-    public static List<String> readLines(Path pathToFile) throws IOException{
-    	Charset charset = Charset.forName("ISO-8859-1");
-    	List<String> lines = Files.readAllLines(pathToFile, charset);
-		return lines;
+
+    public List<String> readDetailsSplit(String baseDir, String file) throws URISyntaxException, IOException {
+        String filePath = "/" + baseDir + file;
+        System.out.println( filePath );
+        Path path = Paths.get( getClass().getResource( filePath ).toURI() );
+        return readLines( path );
+    }
+
+    public static List<String> readLines(Path pathToFile) throws IOException {
+        Charset charset = Charset.forName( "ISO-8859-1" );
+        List<String> lines = Files.readAllLines( pathToFile, charset );
+        return lines;
     }
 }
