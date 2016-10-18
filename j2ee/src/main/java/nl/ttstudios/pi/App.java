@@ -1,6 +1,7 @@
 package nl.ttstudios.pi;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -19,10 +20,15 @@ public class App {
     private static final long SLEEP_MILLIS = 1000;
 
     public static void main(String[] args) {
-        startReadingTemperatureSensor( SENSOR_TYPE );
+        try {
+            startReadingTemperatureSensor( SENSOR_TYPE );
+        }
+        catch ( URISyntaxException e ) {
+            throw new UnsupportedOperationException(e);
+        }
     }
 
-    private static void startReadingTemperatureSensor(String sensorType) {
+    private static void startReadingTemperatureSensor(String sensorType) throws URISyntaxException {
         TemperatureManager tempManager;
         try {
             tempManager = new TemperatureManager( sensorType );

@@ -1,6 +1,7 @@
 package nl.ttstudios.pi.gpio.temperature.drivers;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -36,10 +37,13 @@ public class DS1820 implements TemperatureSensor {
     private String deviceFile = "/w1_slave";
     private String devicePath = null;
     private String deviceSerialNumber;
+    
+    private PiManager piManager = new PiManager();
 
-    public DS1820 () throws IOException {
-        deviceSerialNumber = PiManager.getPiSerialNumber();
+    public DS1820() throws URISyntaxException, IOException {
+        deviceSerialNumber = piManager.getPiSerialNumber();
     }
+
     /**
      * read raw temperature and extract the raw temperature
      * 
