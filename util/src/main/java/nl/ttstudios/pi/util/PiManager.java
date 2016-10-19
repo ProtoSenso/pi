@@ -19,13 +19,7 @@ public class PiManager {
     private Properties prop = new Properties();
     private FileReader fileReader = new FileReader();
 
-    public PiManager() throws IOException {
-
-        this.prop = new Properties();
-        this.prop.load( this.getClass().getClassLoader().getResourceAsStream( PROPERTY_FILE ) );
-
-        BASE_DIR = prop.getProperty( getClass().getName() + "." + "BASE_DIR" );
-        FILE = prop.getProperty( getClass().getName() + "." + "FILE" );
+    public PiManager() {
     }
 
     public String getPiSerialNumber() throws URISyntaxException, IOException {
@@ -51,10 +45,24 @@ public class PiManager {
         }
         return serialNumber;
     }
-    
+
     private List<String> readPiDetailsRaw() throws IOException {
-        Path path = Paths.get( "/" + BASE_DIR, FILE );
-        return FileReader.readLines( path );
+        setProperties();
+        Path path = null;
+
+        String os = System.getProperty( "os.name" );
+        if ( "linux".equals( os ) ) {
+            path = Paths.get( "/" + BASE_DIR, FILE );
+        }
+        return fileReader.readLines( path );
+    }
+
+    public void setProperties() throws IOException {
+        this.prop = new Properties();
+        this.prop.load( this.getClass().getClassLoader().getResourceAsStream( PROPERTY_FILE ) );
+
+        BASE_DIR = prop.getProperty( getClass().getName() + "." + "BASE_DIR" );
+        FILE = prop.getProperty( getClass().getName() + "." + "FILE" );
     }
 
 }

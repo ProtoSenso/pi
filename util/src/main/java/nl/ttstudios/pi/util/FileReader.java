@@ -79,7 +79,7 @@ public class FileReader {
         return readLines( path );
     }
 
-    public static List<String> readLines(Path pathToFile) throws IOException {
+    public List<String> readLines(Path pathToFile) throws IOException {
         Charset charset = Charset.forName( "ISO-8859-1" );
         List<String> lines = Files.readAllLines( pathToFile, charset );
         return lines;
