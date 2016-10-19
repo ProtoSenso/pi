@@ -1,5 +1,6 @@
 package nl.ttstudios.pi.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
@@ -11,10 +12,21 @@ import java.util.regex.Pattern;
 
 public class PiManager {
 
-    private static final String PROPERTY_FILE = "pi.properties";
+    private static final String PATTERN_SERIAL_NUMBER = "(Serial[ ]*): ([0-9a-f]{16})$";
 
-    protected static String BASE_DIR;
-    protected static String FILE;
+    private static final int GROUP_INDEX_VALUE_SERIAL_NUMBER = 2;
+
+    private static final String OS_NAME = "os.name";
+    private static final String LINUX = "linux";
+
+    private static final String PROPERTY_FILE = "pi.properties";
+    private static final String FILE = "FILE";
+    private static final String BASE_DIR = "BASE_DIR";
+
+    protected static String VALUE_BASE_DIR;
+    protected static String VALUE_FILE;
+    protected static String KEY_BASE_DIR;
+    protected static String KEY_FILE;
 
     private Properties prop = new Properties();
     private FileReader fileReader = new FileReader();
@@ -28,7 +40,7 @@ public class PiManager {
         // read file
         List<String> details = readPiDetailsRaw();
 
-        Pattern p = Pattern.compile( "(Serial[ ]*): ([0-9a-f]{16})$" );
+        Pattern p = Pattern.compile( PATTERN_SERIAL_NUMBER );
 
         for ( String detail : details ) {
             serialNumber = matchKeyValuePairWithRegex( serialNumber, p, detail.replace( '\t', ' ' ).trim() );
@@ -41,28 +53,33 @@ public class PiManager {
 
         while ( m.find() ) {
 
-            serialNumber = m.group( 2 );
+            serialNumber = m.group( GROUP_INDEX_VALUE_SERIAL_NUMBER );
         }
         return serialNumber;
     }
 
     private List<String> readPiDetailsRaw() throws IOException {
-        setProperties();
+        loadProperties();
         Path path = null;
 
-        String os = System.getProperty( "os.name" );
-        if ( "linux".equals( os ) ) {
-            path = Paths.get( "/" + BASE_DIR, FILE );
+        String os = System.getProperty( OS_NAME );
+        if ( LINUX.equals( os ) ) {
+            path = Paths.get( File.pathSeparator + VALUE_BASE_DIR, VALUE_FILE );
         }
         return fileReader.readLines( path );
     }
 
-    public void setProperties() throws IOException {
+    public void loadProperties() throws IOException {
         this.prop = new Properties();
         this.prop.load( this.getClass().getClassLoader().getResourceAsStream( PROPERTY_FILE ) );
 
-        BASE_DIR = prop.getProperty( getClass().getName() + "." + "BASE_DIR" );
-        FILE = prop.getProperty( getClass().getName() + "." + "FILE" );
+        // keys
+        KEY_BASE_DIR = getClass().getName() + "." + BASE_DIR;
+        KEY_FILE = getClass().getName() + "." + FILE;
+
+        // values
+        VALUE_BASE_DIR = prop.getProperty( KEY_BASE_DIR );
+        VALUE_FILE = prop.getProperty( KEY_FILE );
     }
 
 }

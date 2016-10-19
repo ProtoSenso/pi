@@ -38,6 +38,7 @@ public class DS1820 implements TemperatureSensor {
     private String devicePath = null;
     private String deviceSerialNumber;
     
+    private FileReader fileReader = new FileReader();
     private PiManager piManager = new PiManager();
 
     public DS1820() throws URISyntaxException, IOException {
@@ -127,7 +128,7 @@ public class DS1820 implements TemperatureSensor {
      */
     private List<String> readTemperatureRaw() throws IOException {
         Path path = Paths.get( deviceFolder, deviceFile );
-        return FileReader.readLines( path );
+        return fileReader.readLines( path );
     }
 
     @Override
