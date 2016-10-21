@@ -26,9 +26,16 @@
 			<artifactId>java-rest-client</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+
 		<dependency>
-			<groupId>nl.ttstudios.pi</groupId>
-			<artifactId>temperature</artifactId>
+			<groupId>nl.ttstudios.pi.common</groupId>
+			<artifactId>common-behavior</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>nl.ttstudios.pi.client</groupId>
+			<artifactId>client-behavior</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 

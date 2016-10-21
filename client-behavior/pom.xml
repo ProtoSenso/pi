@@ -1,11 +1,44 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>nl.ttstudios</groupId>
-    <artifactId>pi</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>client-behavior</artifactId>
-  <name>TTSTUDIOS - PI - CLIENT - BEHAVIOR</name>
-  <description>Client behavior implementation</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>nl.ttstudios</groupId>
+		<artifactId>pi</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
+	<groupId>nl.ttstudios.pi.client</groupId>
+	<artifactId>client-behavior</artifactId>
+	
+	<name>TTSTUDIOS - PI - CLIENT - BEHAVIOR</name>
+	<description>Client behavior implementation</description>
+
+	<dependencies>
+
+		<!-- INTERNAL -->
+		<dependency>
+			<groupId>nl.ttstudios.pi.common</groupId>
+			<artifactId>common-behavior</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>nl.ttstudios</groupId>
+			<artifactId>java-rest-client</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>nl.ttstudios.pi</groupId>
+			<artifactId>temperature</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- 3rd party -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+
+	</dependencies>
 </project>
