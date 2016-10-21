@@ -25,8 +25,8 @@ public class PiManager {
 
     protected static String VALUE_BASE_DIR;
     protected static String VALUE_FILE;
-    protected static String KEY_BASE_DIR;
-    protected static String KEY_FILE;
+    protected static String KEY_CPU_INFO_BASE_DIR;
+    protected static String KEY_CPU_INFO_FILE;
 
     private Properties prop = new Properties();
     private FileReader fileReader = new FileReader();
@@ -74,12 +74,12 @@ public class PiManager {
         this.prop.load( this.getClass().getClassLoader().getResourceAsStream( PROPERTY_FILE ) );
 
         // keys
-        KEY_BASE_DIR = getClass().getName() + "." + BASE_DIR;
-        KEY_FILE = getClass().getName() + "." + FILE;
+        KEY_CPU_INFO_BASE_DIR = getClass().getName() + "." + BASE_DIR;
+        KEY_CPU_INFO_FILE = getClass().getName() + "." + FILE;
 
         // values
-        VALUE_BASE_DIR = prop.getProperty( KEY_BASE_DIR );
-        VALUE_FILE = prop.getProperty( KEY_FILE );
+        VALUE_BASE_DIR = prop.getProperty( KEY_CPU_INFO_BASE_DIR );
+        VALUE_FILE = prop.getProperty( KEY_CPU_INFO_FILE );
     }
 
 }
