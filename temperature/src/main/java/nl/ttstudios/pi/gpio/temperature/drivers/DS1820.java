@@ -1,9 +1,11 @@
 package nl.ttstudios.pi.gpio.temperature.drivers;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +14,7 @@ import nl.ttstudios.pi.gpio.temperature.TemperatureDto;
 import nl.ttstudios.pi.gpio.temperature.TemperatureSensor;
 import nl.ttstudios.pi.sys_io.Find;
 import nl.ttstudios.pi.util.FileReader;
+import nl.ttstudios.pi.util.PiManager;
 
 public class DS1820 implements TemperatureSensor {
     private static final Logger LOG = LogManager.getLogger( TemperatureSensor.class );
@@ -22,15 +25,24 @@ public class DS1820 implements TemperatureSensor {
     private static final String TEMPERATURE_UNIT = TemperatureDto.CELSIUS;
     private static final String PREFIX_CRC = "crc=";
 
-    private static final String baseDir = "/sys/bus/w1/devices/";
+    private static final String BASE_DIR = "/sys/bus/w1/devices/";
 
-    private static final int TEMPERATURE_CELSIUS_INDEX = 0;
-    private static final int CRC_INDEX = 1;
-    private static final int TEMPERATURE_OK_INDEX = 2;
-    private static final int TIMESTAMP_INDEX = 3;
+    private static final int TEMPERATURE_UID_INDEX = 0;
+    private static final int TEMPERATURE_CELSIUS_INDEX = 1;
+    private static final int CRC_INDEX = 2;
+    private static final int TEMPERATURE_OK_INDEX = 3;
+    private static final int TIMESTAMP_INDEX = 4;
 
-    private static String deviceFolder = null;
-    private static String deviceFile = "/w1_slave";
+    private String deviceFolder = null;
+    private String deviceFile = "/w1_slave";
+    private String devicePath = null;
+    private String deviceSerialNumber;
+    
+    private PiManager piManager = new PiManager();
+
+    public DS1820() throws URISyntaxException, IOException {
+        deviceSerialNumber = piManager.getPiSerialNumber();
+    }
 
     /**
      * read raw temperature and extract the raw temperature
@@ -42,7 +54,7 @@ public class DS1820 implements TemperatureSensor {
     public DS1820Dto readTemperature() throws IOException {
         LOG.info( "#### DS1820 readTemperature" );
 
-        String[] temperatureStringArray = null;
+        String[] temperatureDetails = null;
 
         getDeviceSpecifics();
         List<String> details = readTemperatureRaw();
@@ -52,24 +64,26 @@ public class DS1820 implements TemperatureSensor {
             LOG.debug( detail );
             rawTemperature = rawTemperature + detail;
         }
-        temperatureStringArray = getTemperatureFromDetail( rawTemperature, System.currentTimeMillis() );
+        temperatureDetails = getTemperatureFromDetail( rawTemperature, System.currentTimeMillis() );
 
         DS1820Dto dto = new DS1820Dto();
+        dto.setuID( temperatureDetails[TEMPERATURE_UID_INDEX] );
+        dto.setDeviceUID( deviceSerialNumber );
         dto.setSensorUID( deviceFolder );
-        dto.setTemperature( Double.valueOf( temperatureStringArray[TEMPERATURE_CELSIUS_INDEX] ) );
+        dto.setTemperature( Double.valueOf( temperatureDetails[TEMPERATURE_CELSIUS_INDEX] ) );
         dto.setTemperatureUnit( TEMPERATURE_UNIT );
-        dto.setTemperatureCRC( temperatureStringArray[CRC_INDEX] );
-        dto.setTemperatureOK( temperatureStringArray[TEMPERATURE_OK_INDEX].equals( YES ) ? true : false );
-        dto.setUnixTimestamp( temperatureStringArray[TIMESTAMP_INDEX] );
+        dto.setTemperatureCRC( temperatureDetails[CRC_INDEX] );
+        dto.setTemperatureOK( temperatureDetails[TEMPERATURE_OK_INDEX].equals( YES ) ? true : false );
+        dto.setUnixTimestamp( temperatureDetails[TIMESTAMP_INDEX] );
 
         return dto;
     }
 
     private void getDeviceSpecifics() throws IOException {
         String pattern = "28*";
-        List<String> filesFound = Find.find( baseDir, pattern );
+        List<String> filesFound = Find.find( BASE_DIR, pattern );
         deviceFolder = filesFound.get( 0 );
-        deviceFile = deviceFolder + deviceFile;
+        devicePath = deviceFolder + deviceFile;
     }
 
     /**
@@ -77,7 +91,7 @@ public class DS1820 implements TemperatureSensor {
      * @return - an String array with the celsius value on index 1 and on index 2 the fahrenheit value
      */
     private String[] getTemperatureFromDetail(String detail, long unixTimestamp) {
-        String[] temperature = new String[4];
+        String[] temperature = new String[5];
         String temperatureC = null;
         String temperatureCRC = null;
 
@@ -97,6 +111,7 @@ public class DS1820 implements TemperatureSensor {
                 isTemperatureOK = true;
             }
         }
+        temperature[TEMPERATURE_UID_INDEX] = UUID.randomUUID().toString();
         temperature[TEMPERATURE_CELSIUS_INDEX] = temperatureC;
         temperature[CRC_INDEX] = temperatureCRC;
         temperature[TEMPERATURE_OK_INDEX] = isTemperatureOK ? YES : NO;
@@ -111,7 +126,7 @@ public class DS1820 implements TemperatureSensor {
      * @throws IOException
      */
     private List<String> readTemperatureRaw() throws IOException {
-        Path path = Paths.get( deviceFolder, "/w1_slave" );
+        Path path = Paths.get( deviceFolder, deviceFile );
         return FileReader.readLines( path );
     }
 
