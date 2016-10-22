@@ -16,12 +16,10 @@ public class PiManager {
 
     private static final int GROUP_INDEX_VALUE_SERIAL_NUMBER = 2;
 
-    private static final String OS_NAME = "os.name";
+    private static final String KEY_OS_NAME = "os.name";
     private static final String LINUX = "Linux";
 
     private static final String PROPERTY_FILE = "pi.properties";
-    private static final String FILE = "FILE";
-    private static final String BASE_DIR = "BASE_DIR";
 
     protected static String VALUE_BASE_DIR;
     protected static String VALUE_FILE;
@@ -62,7 +60,7 @@ public class PiManager {
         loadProperties();
         Path path = null;
 
-        String os = System.getProperty( OS_NAME );
+        String os = System.getProperty( KEY_OS_NAME );
         System.err.println( "-----> " + os );
         if ( LINUX.equals( os ) ) {
             System.out.println(  File.pathSeparator + VALUE_BASE_DIR + " : " + VALUE_FILE  );
@@ -76,8 +74,8 @@ public class PiManager {
         this.prop.load( this.getClass().getClassLoader().getResourceAsStream( PROPERTY_FILE ) );
 
         // keys
-        KEY_CPU_INFO_BASE_DIR = getClass().getName() + "." + BASE_DIR;
-        KEY_CPU_INFO_FILE = getClass().getName() + "." + FILE;
+        KEY_CPU_INFO_BASE_DIR = getClass().getName() + "." + "KEY_CPU_INFO_BASE_DIR";
+        KEY_CPU_INFO_FILE = getClass().getName() + "." + "KEY_CPU_INFO_FILE";
 
         // values
         VALUE_BASE_DIR = prop.getProperty( KEY_CPU_INFO_BASE_DIR );
