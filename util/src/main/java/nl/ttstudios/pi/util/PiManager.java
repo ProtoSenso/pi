@@ -63,6 +63,7 @@ public class PiManager {
         Path path = null;
 
         String os = System.getProperty( OS_NAME );
+        System.err.println( "-----> " + os );
         if ( LINUX.equals( os ) ) {
             path = Paths.get( File.pathSeparator + VALUE_BASE_DIR, VALUE_FILE );
         }
