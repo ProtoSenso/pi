@@ -12,7 +12,7 @@ import nl.ttstudios.rest.client.RestClient;
 
 public class StartReadingSensor implements BehaviorStrategy {
 
-    private static final String TARGET = "192.168.1.65";
+    private static final String TARGET = "192.168.1.185";//192.168.1.185
     private static final String TARGET_URL_POST = "http://" + TARGET + ":9080/api/temperature_reading";
 
     // TODO - Check what sensor is connected to the pi
