@@ -3,21 +3,28 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>nl.ttstudios</groupId>
+    <parent>
+        <groupId>com.ttstudios</groupId>
+        <artifactId>ttstudios-baseline</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>nl.ttstudios.pi</groupId>
 	<artifactId>pi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>PI - BASELINE</name>
+    <name>COM - TTSTUDIOS - PI - CLIENT - BASELINE</name>
+
 	<url>http://maven.apache.org</url>
 
 	<modules>
 		<module>temperature</module>
 		<module>java-rest-client</module>
-		<module>j2ee</module>
         <module>util</module>
         <module>common-behavior</module>
 		<module>client-behavior</module>
+        <module>pi-j2ee</module>
 	</modules>
 
 	<properties>
@@ -46,6 +53,41 @@
 	<dependencyManagement>
 		<dependencies>
 
+            <dependency>
+                <groupId>nl.ttstudios.pi</groupId>
+                <artifactId>temperature</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>nl.ttstudios.pi</groupId>
+                <artifactId>java-rest-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>nl.ttstudios.pi</groupId>
+                <artifactId>util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>nl.ttstudios.pi</groupId>
+                <artifactId>common-behavior</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>nl.ttstudios.pi</groupId>
+                <artifactId>client-behavior</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>nl.ttstudios.pi</groupId>
+                <artifactId>pi-j2ee</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 			<!-- 3pp -->
 			<dependency>
 				<groupId>commons-io</groupId>
@@ -124,7 +166,7 @@
 							<manifest>
 								<addClasspath>true</addClasspath>
 								<classpathPrefix>lib/</classpathPrefix>
-								<mainClass>nl.ttstudios.pi.App</mainClass>
+								<mainClass>nl.ttstudios.pi.SensorApplication</mainClass>
 							</manifest>
 						</archive>
 						<descriptorRefs>

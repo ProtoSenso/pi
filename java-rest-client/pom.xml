@@ -1,135 +1,142 @@
 <?xml version="1.0"?>
 <project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<modelVersion>4.0.0</modelVersion>
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+        xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>nl.ttstudios</groupId>
-		<artifactId>pi</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
+    <parent>
+        <groupId>nl.ttstudios.pi</groupId>
+        <artifactId>pi</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 
-	<artifactId>java-rest-client</artifactId>
+    <artifactId>java-rest-client</artifactId>
+    <packaging>jar</packaging>
 
-	<name>java-rest-client</name>
-	<url>http://maven.apache.org</url>
+    <name>COM - TTSTUDIOS - PI - CLIENT - REST</name>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <url>http://maven.apache.org</url>
 
-		<!-- 3RD PARTY -->
-		<swagger-core-version>1.5.9</swagger-core-version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<!-- HTTP client: jersey-client -->
-		<jersey-version>2.22.2</jersey-version>
+        <!-- 3RD PARTY -->
+        <swagger-core-version>1.5.9</swagger-core-version>
 
-		<!-- Maven -->
-		<maven-plugin-version>1.0.0</maven-plugin-version>
+        <!-- HTTP client: jersey-client -->
+        <jersey-version>2.22.2</jersey-version>
 
-		<!-- TEST -->
-		<junit-version>4.12</junit-version>
-	</properties>
+        <!-- Maven -->
+        <maven-plugin-version>1.0.0</maven-plugin-version>
 
-	<dependencies>
-		<!-- INTERNAL -->
+        <!-- TEST -->
+        <junit-version>4.12</junit-version>
+    </properties>
+
+    <dependencies>
+        <!-- INTERNAL -->
 
         <!-- 3rd party -->
-         <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-            <version>1.2.4.RELEASE</version>
-		</dependency>
-  <dependency>
-   <groupId>org.springframework.boot</groupId>
-   <artifactId>spring-boot-starter-test</artifactId>
-   <version>1.2.4.RELEASE</version>
-  </dependency>
-<!--         <dependency> -->
-<!--             <groupId>org.springframework</groupId> -->
-<!--             <artifactId>spring-test</artifactId> -->
-<!--             <version>4.1.6.RELEASE</version>     -->
-<!--         </dependency> -->
-        
-		<!-- HTTP client: jersey-client -->
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>${jersey-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-multipart</artifactId>
-			<version>${jersey-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>${jersey-version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <!--<version>1.2.4.RELEASE</version>-->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <!--<version>1.2.4.RELEASE</version>-->
+        </dependency>
+        <!--         <dependency> -->
+        <!--             <groupId>org.springframework</groupId> -->
+        <!--             <artifactId>spring-test</artifactId> -->
+        <!--             <version>4.1.6.RELEASE</version>     -->
+        <!--         </dependency> -->
 
-		<!-- JSON processing: jackson -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-annotations</artifactId>
-			<version>${jackson-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>${jackson-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-jsr310</artifactId>
-			<version>${jackson-version}</version>
-		</dependency>
+        <!-- HTTP client: jersey-client -->
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
 
-		<!-- Test -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
- <build>
- <plugins>
-  <plugin>
-   <groupId>org.apache.maven.plugins</groupId>
-   <artifactId>maven-dependency-plugin</artifactId>
-   <executions>
-    <execution>
-     <id>copy-dependencies</id>
-     <phase>prepare-package</phase>
-     <goals>
-      <goal>copy-dependencies</goal>
-     </goals>
-     <configuration>
-      <outputDirectory>${project.build.directory}/lib</outputDirectory>
-      <overWriteReleases>false</overWriteReleases>
-      <overWriteSnapshots>false</overWriteSnapshots>
-      <overWriteIfNewer>true</overWriteIfNewer>
-     </configuration>
-    </execution>
-   </executions>
-  </plugin>
-  <plugin>
-   <groupId>org.apache.maven.plugins</groupId>
-   <artifactId>maven-jar-plugin</artifactId>
-   <configuration>
-    <archive>
-     <manifest>
-      <addClasspath>true</addClasspath>
-      <classpathPrefix>lib/</classpathPrefix>
-      <!-- <mainClass>theMainClass</mainClass> -->
-     </manifest>
-    </archive>
-   </configuration>
-  </plugin>
- </plugins>
-</build>
+        <!-- JSON processing: jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-jar-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<archive>-->
+                        <!--<manifest>-->
+                            <!--<addClasspath>true</addClasspath>-->
+                            <!--<classpathPrefix>lib/</classpathPrefix>-->
+                            <!--&lt;!&ndash; <mainClass>theMainClass</mainClass> &ndash;&gt;-->
+                        <!--</manifest>-->
+                    <!--</archive>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+        </plugins>
+    </build>
 </project>
