@@ -6,5 +6,5 @@ package com.ttstudios.pi.behavior.common;
  *
  */
 public interface BehaviorStrategy {
-    public int execute(String type);
+//    public int execute(String type);
 }

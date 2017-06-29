@@ -1,6 +1,7 @@
 package com.ttstudios.pi.behavior;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.ttstudios.pi.behavior.common.BehaviorStrategy;
 import com.ttstudios.pi.rest.client.RestClient;
 import com.ttstudios.pi.temperature.TemperatureManager;
 import com.ttstudios.pi.temperature.drivers.DS1820Dto;
@@ -16,7 +17,7 @@ import java.net.URISyntaxException;
 
 @ComponentScan({"com.ttstudios.pi"})
 @EnableAutoConfiguration
-public class StartReadingSensor {
+public class StartReadingSensor implements BehaviorStrategy{
 
 
     private static final Logger LOG = LoggerFactory.getLogger(StartReadingSensor.class);
