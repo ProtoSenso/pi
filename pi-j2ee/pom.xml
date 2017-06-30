@@ -11,6 +11,7 @@
 	</parent>
 
 	<artifactId>pi-j2ee</artifactId>
+    <packaging>jar</packaging>
 
     <name>COM - TTSTUDIOS - PI - CLIENT - J2EE</name>
 
