@@ -61,6 +61,11 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>nl.ttstudios.pi</groupId>
+            <artifactId>pi-transform</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 </project>
