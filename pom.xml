@@ -25,7 +25,8 @@
         <module>common-behavior</module>
 		<module>client-behavior</module>
         <module>pi-j2ee</module>
-	</modules>
+        <module>pi-transform</module>
+    </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

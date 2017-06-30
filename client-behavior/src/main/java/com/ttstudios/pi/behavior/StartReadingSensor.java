@@ -5,6 +5,8 @@ import com.ttstudios.pi.behavior.common.BehaviorStrategy;
 import com.ttstudios.pi.rest.client.RestClient;
 import com.ttstudios.pi.temperature.TemperatureManager;
 import com.ttstudios.pi.temperature.drivers.DS1820Dto;
+import com.ttstudios.pi.temperature.drivers.MeasurementDto;
+import com.ttstudios.pi.transform.SensorToDtoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class StartReadingSensor implements BehaviorStrategy{
     @Autowired
     private static RestClient client;
 
+    @Autowired
+    private static SensorToDtoMapper mapper;
+
     public static int execute(String sensorType) {
         LOG.info("execute");
         TemperatureManager tempManager;
@@ -42,8 +47,10 @@ public class StartReadingSensor implements BehaviorStrategy{
                 // do reading
                 DS1820Dto readingDto = tempManager.readTemperature();
 
+                MeasurementDto measurement = mapper.toMeasurement(readingDto);
+
                 // send to server
-                client.doPost(TARGET_URL_POST, readingDto);
+                client.doPost(TARGET_URL_POST, measurement);
 
                 Thread.sleep(SLEEP_MILLIS);
             }
