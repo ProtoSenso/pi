@@ -22,7 +22,7 @@ public class StartReadingSensor implements BehaviorStrategy{
 
     private static final Logger LOG = LoggerFactory.getLogger(StartReadingSensor.class);
 
-    private static final String TARGET = "192.168.1.185";//192.168.1.185
+    private static final String TARGET = "192.168.0.101";//192.168.1.185
     private static final String TARGET_URL_POST = "http://" + TARGET + ":9080/api/temperature_reading";
 
     // TODO - Check what sensor is connected to the pi
