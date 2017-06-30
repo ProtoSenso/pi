@@ -7,7 +7,7 @@ public class Context {
        this.strategy = strategy;
     }
 
-    public int executeStrategy(String type){
-       return strategy.execute(type);
-    }
+//    public int executeStrategy(String type){
+//       return strategy.execute(type);
+//    }
  }

@@ -30,8 +30,8 @@ public class SensorApplication {
             //startReadingTemperatureSensor( SENSOR_TYPE );
     }
 
-    private static void startReadingTemperatureSensor(String sensorType) throws URISyntaxException {
-        Context context = new Context( new StartReadingSensor() );
-        System.out.println( context.executeStrategy( sensorType ) );
-    }
+//    private static void startReadingTemperatureSensor(String sensorType) throws URISyntaxException {
+//        Context context = new Context( new StartReadingSensor() );
+//        System.out.println( context.executeStrategy( sensorType ) );
+//    }
 }
