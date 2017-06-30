@@ -7,6 +7,7 @@ import com.ttstudios.pi.temperature.TemperatureManager;
 import com.ttstudios.pi.temperature.drivers.DS1820Dto;
 import com.ttstudios.pi.temperature.drivers.MeasurementDto;
 import com.ttstudios.pi.transform.SensorToDtoMapper;
+import org.mapstruct.factory.Mappers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +35,13 @@ public class StartReadingSensor implements BehaviorStrategy{
     @Autowired
     private static RestClient client;
 
-    @Autowired
-    private static SensorToDtoMapper mapper;
-
     public static int execute(String sensorType) {
         LOG.info("execute");
         TemperatureManager tempManager;
         try {
             tempManager = new TemperatureManager(sensorType);
+
+            SensorToDtoMapper mapper = Mappers.getMapper(SensorToDtoMapper.class);
 
             while (true) {
                 // do reading
