@@ -41,7 +41,7 @@ public class RestClient {
         // 3. get response from message
         String body = mapper.writeValueAsString( dto );
 
-        System.out.println( body );
+        System.err.println( targetUrl + "\n" + body );
 
         Response postResponse = target.request().post( Entity.json( body ) );
         System.out.println( "-------------->" + postResponse + "<-------------------");
