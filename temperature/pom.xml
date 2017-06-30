@@ -3,17 +3,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>nl.ttstudios</groupId>
+        <groupId>nl.ttstudios.pi</groupId>
         <artifactId>pi</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>nl.ttstudios.pi</groupId>
     <artifactId>temperature</artifactId>
-    <version>${project.parent.version}</version>
     <packaging>jar</packaging>
 
-    <name>temperature</name>
+    <name>COM - TTSTUDIOS - PI - CLIENT - SENSOR - TEMPERATURE</name>
+
     <url>http://maven.apache.org</url>
 
     <properties>
