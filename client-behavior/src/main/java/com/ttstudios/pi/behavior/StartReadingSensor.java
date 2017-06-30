@@ -32,9 +32,6 @@ public class StartReadingSensor implements BehaviorStrategy{
     private static final String SENSOR_TYPE = TemperatureManager.SENSOR_TYPE_DS1820;
     private static final long SLEEP_MILLIS = 1000;
 
-    @Autowired
-    private static RestClient client;
-
     public static int execute(String sensorType) {
         LOG.info("execute");
         TemperatureManager tempManager;
@@ -42,6 +39,8 @@ public class StartReadingSensor implements BehaviorStrategy{
             tempManager = new TemperatureManager(sensorType);
 
             SensorToDtoMapper mapper = Mappers.getMapper(SensorToDtoMapper.class);
+
+            RestClient client = new RestClient();
 
             while (true) {
                 // do reading
