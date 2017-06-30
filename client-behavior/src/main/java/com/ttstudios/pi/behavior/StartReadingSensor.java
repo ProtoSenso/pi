@@ -49,6 +49,8 @@ public class StartReadingSensor implements BehaviorStrategy{
 
                 MeasurementDto measurement = mapper.toMeasurement(readingDto);
 
+                LOG.info("Posting to: " + TARGET_URL_POST);
+
                 // send to server
                 client.doPost(TARGET_URL_POST, measurement);
 
